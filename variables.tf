@@ -144,3 +144,8 @@ variable "worker_create_security_group" {
   description = "Whether to create a security group for the workers or attach the workers to `worker_security_group_id`."
   default     = true
 }
+
+variable "wait_nodes_max_tries" {
+  description = "Wait max tries for nodes to become available. Each try is 0.25 seconds."
+  default     = 60
+}

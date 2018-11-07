@@ -12,6 +12,7 @@ project adheres to [Semantic Versioning](http://semver.org/).
 - `suspended_processes` to `worker_groups` input (by @bkmeneguello)
 - `target_group_arns` to `worker_groups` input (by @zihaoyu)
 - `cluster_create_security_group` and `worker_create_security_group`. This allows using computed cluster and worker security groups. (by @rmakram-ims)
+- Add `wait_nodes_max_tries` to wait for nodes to be available before applying the kubernetes configurations (by @rmakram-ims)
 
 ### Changed
 
