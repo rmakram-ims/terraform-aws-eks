@@ -1,14 +1,18 @@
 #!/bin/sh -xe
 
-retrycmd()
-{
-    local cmd=$1
-    local max=$${2:-600}
-    local interval=$${3:-.25}
-    local status
+counter=1
+echo -e "Waiting for kubernetes to be ready to apply "
+pwd
+echo The contents of ${kubeconfig} are
+cat ${kubeconfig}
+cmd='kubectl get nodes --kubeconfig ${kubeconfig}'
+echo $cmd
+max=${max_tries}
+interval=.25
+status=0
 
-    local iters=0
-    while true
+iters=0
+while true
     do
         echo about to execute
         echo $cmd
@@ -18,18 +22,9 @@ retrycmd()
             status=$?
         fi
         if [ $${iters} -ge $${max} ]; then
-            return $status
+            exit $status
         fi
         iters=$(($iters + 1))
         sleep $${interval}
     done
-}
-
-counter=1
-echo -e "Waiting for kubernetes to be ready to apply "
-pwd
-echo The contents of ${kubeconfig} are
-cat ${kubeconfig}
-echo retrycmd 'kubectl get nodes --kubeconfig ${kubeconfig}' ${max_tries}
-retrycmd 'kubectl get nodes --kubeconfig ${kubeconfig}' ${max_tries}
-exit $?
+exit $status
