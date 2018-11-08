@@ -1,30 +1,19 @@
 #!/bin/sh -xe
-
-counter=1
-echo -e "Waiting for kubernetes to be ready to apply "
-pwd
-echo The contents of ${kubeconfig} are
-cat ${kubeconfig}
+# Run command repeatedly until it compltes without errors or retry ${max_tries} with a sleep interval of 0.25 seconds
 cmd='kubectl get nodes --kubeconfig ${kubeconfig}'
-echo $cmd
-max=${max_tries}
-interval=.25
-status=0
-
 iters=0
 while true
     do
-        echo about to execute
-        echo $cmd
         if $cmd &> /dev/null; then
+            status=$?
             break
         else
             status=$?
         fi
-        if [ $${iters} -ge $${max} ]; then
-            exit $status
+        if [ $${iters} -ge ${max_tries} ]; then
+            break
         fi
         iters=$(($iters + 1))
-        sleep $${interval}
+        sleep .25
     done
 exit $status
