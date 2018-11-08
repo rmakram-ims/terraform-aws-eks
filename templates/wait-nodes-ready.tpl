@@ -30,6 +30,6 @@ echo -e "Waiting for kubernetes to be ready to apply "
 pwd
 echo The contents of ${kubeconfig} are
 cat ${kubeconfig}
-echo retrycmd "kubectl get nodes --kubeconfig ${kubeconfig}" ${max_tries}
-retrycmd "kubectl get nodes --kubeconfig ${kubeconfig}" ${max_tries}
+echo retrycmd 'kubectl get nodes --kubeconfig ${kubeconfig}' ${max_tries}
+retrycmd 'kubectl get nodes --kubeconfig ${kubeconfig}' ${max_tries}
 exit $?
