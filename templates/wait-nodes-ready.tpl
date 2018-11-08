@@ -10,6 +10,8 @@ retrycmd()
     local iters=0
     while true
     do
+        echo about to execute
+        echo $cmd
         if $cmd &> /dev/null; then
             break
         else
@@ -25,5 +27,9 @@ retrycmd()
 
 counter=1
 echo -e "Waiting for kubernetes to be ready to apply "
+pwd
+echo The contents of ${kubeconfig} are
+cat ${kubeconfig}
+echo retrycmd "kubectl get nodes --kubeconfig ${kubeconfig}" ${max_tries}
 retrycmd "kubectl get nodes --kubeconfig ${kubeconfig}" ${max_tries}
-echo $?
+exit $?
