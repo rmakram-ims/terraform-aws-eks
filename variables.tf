@@ -145,7 +145,7 @@ variable "worker_create_security_group" {
   default     = true
 }
 
-variable "wait_nodes_max_tries" {
-  description = "Wait max tries for nodes to become available. Each try is 0.25 seconds."
-  default     = 60
-}
+variable "kubectl_request_timeout" {
+  description = "The length of time to wait before giving up on a single server request. Non-zero values should contain a corresponding time unit (e.g. 1s, 2m, 3h). A value of zero means don't timeout requests."
+  default = "15s"
+ }
